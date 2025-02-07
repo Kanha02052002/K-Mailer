@@ -3,279 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Sender</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            padding: 10px;
-            overflow: hidden;
-        }
-
-        .container {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .row {
-            display: flex;
-        }
-
-        .left-section {
-            width: 35%;
-            padding: 20px;
-            border-right: 2px solid #333;
-        }
-
-        .right-section {
-            width: 65%;
-            padding: 20px;
-        }
-
-        .form-control {
-            margin-bottom: 15px;
-            background-color: #333;
-            color: #e0e0e0;
-            border: 1px solid #444;
-        }
-
-        .form-control:focus {
-            background-color: #333;
-            color: #e0e0e0;
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.25);
-        }
-
-        button {
-            width: 100%;
-            font-weight: bold;
-            background-color: #28a745;
-            border-color: #28a745;
-            color: #e0e0e0;
-        }
-
-        button:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-
-        .download-section {
-            margin-top: 20px;
-            display: none;
-        }
-
-        .text-success {
-            color: #28a745;
-        }
-
-        .fw-bold {
-            font-weight: bold;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-
-        .form-check {
-            color: #e0e0e0;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            background-color: #333;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            color: #e0e0e0;
-        }
-
-        .navbar-nav .nav-item .nav-link {
-            color: #e0e0e0;
-            font-weight: bold;
-        }
-
-        .navbar-nav .nav-item .nav-link:hover {
-            color: #28a745;
-        }
-
-        /* How it Works Section */
-        .how-it-works-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .how-it-works {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            width: 70%;
-            color: #e0e0e0;
-        }
-
-        .how-it-works ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        .how-it-works ul li {
-            margin-bottom: 10px;
-        }
-
-        .how-it-works .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5rem;
-            background-color: transparent;
-            border: none;
-            color: #e0e0e0;
-            cursor: pointer;
-        }
-
-        .how-it-works .close-btn:hover {
-            color: #ff0000;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
-    <script>
-        function togglePassword() {
-            var passwordField = document.getElementById('sender_password');
-            var checkBox = document.getElementById('show_password');
-            if (checkBox.checked) {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
-        }
-
-        function toggleHowItWorks() {
-            var overlay = document.getElementById('how-it-works-overlay');
-            overlay.classList.toggle('fade-in');
-            overlay.style.display = overlay.style.display === 'none' ? 'flex' : 'none';
-        }
-
-        function closeHowItWorks() {
-            var overlay = document.getElementById('how-it-works-overlay');
-            overlay.style.display = 'none';
-        }
-    </script>
+    <title>K-Mailer</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">Auto-Mailer</a>
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="toggleHowItWorks()">How it Works?</a>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        
-        <form action="/" method="post" enctype="multipart/form-data">
-            <div class="row">
-                <!-- Left Section -->
-                <div class="left-section">
-                    <label class="form-label">Name:</label>
-                    <input type="text" class="form-control" name="name" required>
-
-                    <label class="form-label">Sender Email:</label>
-                    <input type="email" class="form-control" name="sender_email" required>
-
-                    <label class="form-label">App Password:</label>
-                    <input type="password" class="form-control" id="sender_password" name="sender_password" required>
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="show_password" onclick="togglePassword()">
-                        <label class="form-check-label" for="show_password">Show Password</label>
-                    </div>
-
-                    <label class="form-label">Upload CSV (Emails & Names List):</label>
-                    <input type="file" class="form-control" name="file" accept=".csv" required>
-
-                    <label class="form-label">Attach PDF (Optional):</label>
-                    <input type="file" class="form-control" name="attachment">
-                    
-                    <button type="submit" class="btn btn-primary mt-3">🚀 Send Emails</button>
-                </div>
-
-                <!-- Right Section -->
-                <div class="right-section">
-                    <label class="form-label">Subject:</label>
-                    <input type="text" class="form-control" name="subject" required>
-
-                    <label class="form-label">Message:</label>
-                    <textarea class="form-control" name="message" rows="7" required></textarea>
-
-                    <!-- Download Report Button (Initially Hidden) -->
-                    <div class="download-section text-center">
-                        <p class="text-success fw-bold">✅ Emails Sent Successfully!</p>
-                        <a href="/download" class="btn btn-success">📥 Download Report</a>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <!-- Flash Messages -->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <script>
-            document.querySelector('.download-section').style.display = 'block';
-        </script>
-        {% endif %}
-        {% endwith %}
-    </div>
-
-    <!-- How it Works Overlay -->
-    <div id="how-it-works-overlay" class="how-it-works-overlay">
-        <div class="how-it-works fade-in">
-            <button class="close-btn" onclick="closeHowItWorks()">×</button>
-            <h3 class="fw-bold">How to Use Auto-Mailer</h3>
-            <ul>
-                <li>Use an <strong>App Password</</strong> instead of your email password. You can generate an App Password in your Google Account settings.</li>
-                <li>The <strong>CSV</strong> file must contain two columns: <strong>Email</strong> and <strong>Name</strong>. Enter the relevant details under each column.</li>
-                <li>You may upload the CSV file in any format.</li>
-                <li>In the <strong>Message</strong> section, write the content of your message between <strong>Dear</strong> and <strong>Thank You</strong>. The rest will be auto-filled.</li>
-                <li>Enter the <strong>Name</strong> you want to appear in the emails sent.</li>
-            </ul>
+    <nav class="navbar">
+        <div class="title">
+            <h2 class="title-Name">K-Mailer</h2>
         </div>
+    </nav>
+    <div class="content-center">
+        <h3 style="font-size: 18px; font-weight: normal; margin-bottom: -10px;">
+            Send bulk personalized emails effortlessly with attachments and real-time tracking. 
+        </h3>
+        <h4>
+            🚀 Stay organized, save time, and make every email count!
+        </h4>
     </div>
+    <div class="center">
+        <div class="card">
+            <h2>Cold Mail Automation</h2>
+            <div class="description">
+                <p>Send cold emails to multiple recipients effortlessly!</p>
+                <div id="features">
+                <p>🛠️ How It Works 🛠️</p>
+                <ol style="text-align: left;     letter-spacing: 0.5px;">
+                    <li>1️⃣ Upload a <strong>   CSV</strong> file with <strong> Receiver Email("email")</strong> and<strong> Name("name")</strong> fields</li>
+                    <li>2️⃣ Enter your sender details, email subject, and message <strong>(excluding greetings and closing)</strong>.</li>
+                    <li>3️⃣ Attach a file if needed.</li>
+                    <li>4️⃣ Click <strong> Send Emails</strong>  – the system personalizes each message and sends it</li>
+                    <li>5️⃣ Download a <strong>detailed report</strong> of sent emails with success/failure status.</li>
+                </ol>
+            </div>
+            </div>
+            <a href="/cold-mail" ><button class="btn">Get Started</button></a>
+        </div>
+
+        <div class="card">
+            <h2>Bulk Mail Automation</h2>
+            <div class="description">
+                <p>Send Bulk emails to multiple recipients effortlessly!</p>
+                <div id="features">
+                <p>🛠️ How It Works 🛠️</p>
+                <ol style="text-align: left;     letter-spacing: 0.5px;">
+                    <li>1️⃣ Upload a <strong>   CSV</strong> file with <strong> Receiver Email("email")</strong> and field below.</li>
+                    <li>2️⃣ Enter your sender details, email subject, and <strong>full message content</strong>.</li>
+                    <li>3️⃣ Attach a file if needed.</li>
+                    <li>4️⃣ Click <strong> Send Emails</strong> – the system personalizes each message and sends it</li>
+                    <li>5️⃣ Download a <strong>detailed report</strong> of sent emails with success/failure status.</li>
+                </ol>
+            </div>
+            </div>
+            <a href="/bulk-mail" ><button class="btn">Get Started</button></a>
+        </div>
+        <div class="card">
+            <h2>Template Automation</h2>
+            <div class="description">
+                <p>Send a template to multiple recipients effortlessly!</p>
+                <div id="features">
+                <p>🛠️ How It Works 🛠️</p>
+                <ol style="text-align: left;     letter-spacing: 0.5px;">
+                    <li>1️⃣ Upload a <strong>   CSV</strong> file with <strong> Receiver Email("email")</strong> and<strong> Name("name")</strong> fields</li>
+                    <li>2️⃣ Enter your sender detail and and provide an <strong> HTML email template</strong> for the message.</li>
+                    <li>3️⃣ Attach a file if needed.</li>
+                    <li>4️⃣ Click <strong> Send Emails</strong>  – the system personalizes each message and sends it</li>
+                    <li>5️⃣ Download a <strong>detailed report</strong> of sent emails with success/failure status.</li>
+                </ol>
+            </div>
+            </div>
+            <a href="/template-mail" ><button class="btn">Get Started</button></a>
+        </div>
+        
+    </div>
+</div>
+    
 
 </body>
 </html>

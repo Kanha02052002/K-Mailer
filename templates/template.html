@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sender</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 10px;
+            overflow: hidden;
+            font-family: Rubik;
+        }
+
+        .container {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .left-section {
+            width: 35%;
+            padding: 20px;
+            border-right: 2px solid #333;
+        }
+
+        .right-section {
+            width: 65%;
+            padding: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.25);
+        }
+
+        button {
+            width: 100%;
+            font-weight: bold;
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #e0e0e0;
+        }
+
+        button:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .download-section {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .text-success {
+            color: #28a745;
+        }
+
+        .fw-bold {
+            font-weight: bold;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .form-check {
+            color: #e0e0e0;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #28a745;
+        }
+
+        .how-it-works-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .how-it-works {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            width: 70%;
+            color: #e0e0e0;
+        }
+
+        .how-it-works ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .how-it-works ul li {
+            margin-bottom: 10px;
+        }
+
+        .how-it-works .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            background-color: transparent;
+            border: none;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .how-it-works .close-btn:hover {
+            color: #ff0000;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('sender_password');
+            var checkBox = document.getElementById('show_password');
+            if (checkBox.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+        function toggleHowItWorks() {
+            var overlay = document.getElementById('how-it-works-overlay');
+            overlay.classList.toggle('fade-in');
+            overlay.style.display = overlay.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function closeHowItWorks() {
+            var overlay = document.getElementById('how-it-works-overlay');
+            overlay.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="../" style="color: #e0e0e0;">Custom Template Automation</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="toggleHowItWorks()">How it Works?</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        
+        <form action="/template-mail" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="left-section">
+                    <label class="form-label">Name:</label>
+                    <input type="text" class="form-control" name="name" >
+
+                    <label class="form-label">Sender Email:</label>
+                    <input type="email" class="form-control" name="sender_email" required>
+
+                    <label class="form-label">App Password:</label>
+                    <input type="password" class="form-control" id="sender_password" name="sender_password" required>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="show_password" onclick="togglePassword()">
+                        <label class="form-check-label" for="show_password">Show Password</label>
+                    </div>
+
+                    <label class="form-label">Upload CSV (Emails only):</label>
+                    <input type="file" class="form-control" name="csv_file" accept=".csv" required>
+
+                    <label class="form-label">Add attachments:</label>
+                    <input type="file" class="form-control" name="attachment">
+                    
+                    <button type="submit" class="btn btn-primary mt-3">🚀 Send Emails</button>
+                </div>
+
+                <div class="right-section">
+                    <label class="form-label">Subject:</label>
+                    <input type="text" class="form-control" name="subject" required>
+
+                    <label class="form-label">Message:</label>
+                    <textarea class="form-control" name="message" rows="7" required></textarea>
+
+                    <!-- <div class="download-section text-center">
+                        <p class="text-success fw-bold">✅ Emails Sent Successfully!</p>
+                        <a href="/download" class="btn btn-success">📥 Download Report</a>
+                    </div> -->
+                </div>
+            </div>
+        </form>
+
+        {% if result %}
+        {{ result }}
+        {% endif %} 
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <script>
+            document.querySelector('.download-section').style.display = 'block';
+        </script>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <div id="how-it-works-overlay" class="how-it-works-overlay">
+        <div class="how-it-works fade-in">
+            <button class="close-btn" onclick="closeHowItWorks()">×</button>
+            <h3 class="fw-bold">How to Use Custom Template Automation</h3>
+            <ul>
+                <li>Use an <strong>App Password</</strong> instead of your email password. You can generate an App Password in your Google Account settings.</li>
+                <li>The <strong>CSV</strong> file must contain only one columns: <strong>Email</strong>. Enter the relevant details under this column.</li>
+                <li>You may upload the attachment file in any format.</li>
+                <li>In the <strong>Message</strong> section, write the content of your message in html format.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
